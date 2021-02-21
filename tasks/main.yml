@@ -1,26 +1,4 @@
 ---
-- name: add the official rabbitmq repository's key
-  apt_key:
-    url: "https://www.rabbitmq.com/rabbitmq-release-signing-key.asc"
-    state: present
-  tags:
-  - rabbitmq
-
-- name: add rabbitmq repository
-  apt_repository:
-    repo: "deb http://www.rabbitmq.com/debian/ testing main"
-    state: present
-  register: rabbitmq_added
-  tags:
-  - rabbitmq
-
-- name: apt update cache
-  apt:
-    update_cache: yes
-  when: rabbitmq_added.changed
-  tags:
-  - rabbitmq
-
 - name: install rabbitmq
   apt:
     pkg: rabbitmq-server
