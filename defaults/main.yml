@@ -8,7 +8,7 @@ rabbitmq_users:
         configure_priv: .*
         read_priv: .*
         write_priv: .*
-    tags: 
+    tags:
       - monitoring
     state: present
 rabbitmq_conf_path: /etc/rabbitmq/rabbitmq.conf

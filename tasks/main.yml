@@ -1,24 +1,24 @@
 ---
 - name: install rabbitmq
-  apt:
+  ansible.builtin.apt:
     pkg: rabbitmq-server
     state: present
   tags:
-  - rabbitmq
+    - rabbitmq
 
 - name: enable rabbitmq service
-  service:
+  ansible.builtin.service:
     name: rabbitmq-server
-    enabled: yes
+    enabled: true
   tags:
-  - rabbitmq
+    - rabbitmq
 
 - name: enable the rabbitmq_management plugin
   rabbitmq_plugin:
     names: rabbitmq_management
     state: enabled
   tags:
-  - rabbitmq
+    - rabbitmq
 
 - name: add rabbitmq vhosts
   rabbitmq_vhost:
@@ -28,7 +28,7 @@
     state={{ item.state | default('present') }}
   with_items: "{{ rabbitmq_vhosts }}"
   tags:
-  - rabbitmq
+    - rabbitmq
 
 - name: add rabbitmq users
   rabbitmq_user:
@@ -44,20 +44,21 @@
     force={{ item.force | default('yes') }}
   with_items: "{{ rabbitmq_users }}"
   tags:
-  - rabbitmq
+    - rabbitmq
 
 - name: create main rabbitmq conf file
-  template:
+  ansible.builtin.template:
     src: rabbitmq.conf
-    dest: "{{ rabbitmq_conf_path }}"
+    dest: "{{ rabbitmq_conf_path }}"
     owner: "rabbitmq"
     group: "rabbitmq"
+    mode: "0644"
   notify: restart rabbitmq
   tags:
-  - rabbitmq
-  
+    - rabbitmq
+
 - include: erlang-cookie.yml
   when: (rabbitmq_erlang_cookie is defined)
     and (rabbitmq_erlang_cookie is not none)
   tags:
-  - rabbitmq
+    - rabbitmq

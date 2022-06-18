@@ -3,15 +3,15 @@ galaxy_info:
   description: Rabbitmq server
   company: SimpliField
   license: BSD
-  min_ansible_version: 2
+  min_ansible_version: "2"
   platforms:
-  - name: Ubuntu
-    versions:
-    - trusty
-    - utopic
-    - vivid
-    - wily
-    - xenial
+    - name: Ubuntu
+      versions:
+        - trusty
+        - utopic
+        - vivid
+        - wily
+        - xenial
   galaxy_tags:
     - rabbitmq
     - amqp
