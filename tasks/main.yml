@@ -57,7 +57,7 @@
   tags:
     - rabbitmq
 
-- include: erlang-cookie.yml
+- include_tasks: erlang-cookie.yml
   when: (rabbitmq_erlang_cookie is defined)
     and (rabbitmq_erlang_cookie is not none)
   tags:
