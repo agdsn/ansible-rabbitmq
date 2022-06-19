@@ -14,14 +14,14 @@
     - rabbitmq
 
 - name: enable the rabbitmq_management plugin
-  rabbitmq_plugin:
+  community.rabbitmq.rabbitmq_plugin:
     names: rabbitmq_management
     state: enabled
   tags:
     - rabbitmq
 
 - name: add rabbitmq vhosts
-  rabbitmq_vhost:
+  community.rabbitmq.rabbitmq_vhost:
     name={{ item.name }}
     node={{ item.node | default('rabbit') }}
     tracing={{ item.tracing | default('no') }}
@@ -31,7 +31,7 @@
     - rabbitmq
 
 - name: add rabbitmq users
-  rabbitmq_user:
+  community.rabbitmq.rabbitmq_user:
     user={{ item.user }}
     password={{ item.password }}
     vhost={{ item.vhost | default('/', false) }}
