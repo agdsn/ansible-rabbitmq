@@ -42,6 +42,7 @@
     write_priv={{ item.write_priv | default('.*') }}
     state={{ item.state | default('present') }}
     force={{ item.force | default('yes') }}
+    permissions={{ item.permissions | default('[]') }}
   with_items: "{{ rabbitmq_users }}"
   tags:
     - rabbitmq
