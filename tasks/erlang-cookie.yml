@@ -1,25 +1,25 @@
 ---
-- name: check erlang cookie
+- name: Check erlang cookie
   ansible.builtin.shell: grep "{{ rabbitmq_erlang_cookie }}" "{{ rabbitmq_erlang_cookie_path }}" || true
   changed_when: false
   ignore_errors: true
   register: rabbitmq_erlang_cookie_status
 
-- name: stopping rabbitmq app
+- name: Stopping rabbitmq app
   ansible.builtin.command: rabbitmqctl stop_app
   when: rabbitmq_erlang_cookie_status.stdout == ""
 
-- name: resetting rabbitmq app
+- name: Resetting rabbitmq app
   ansible.builtin.command: rabbitmqctl reset
   when: rabbitmq_erlang_cookie_status.stdout == ""
 
-- name: stopping rabbitmq-server
+- name: Stopping rabbitmq-server
   ansible.builtin.service:
     name: rabbitmq-server
     state: stopped
   when: rabbitmq_erlang_cookie_status.stdout == ""
 
-- name: setup erlang cookie
+- name: Setup erlang cookie
   ansible.builtin.copy:
     dest: "{{ rabbitmq_erlang_cookie_path }}"
     backup: true
@@ -28,12 +28,12 @@
     group: rabbitmq
     mode: '0400'
 
-- name: restarting rabbitmq-server
+- name: Restarting rabbitmq-server
   ansible.builtin.service:
     name: rabbitmq-server
     state: restarted
   when: rabbitmq_erlang_cookie_status.stdout == ""
 
-- name: start rabbitmq app
+- name: Start rabbitmq app
   ansible.builtin.command: rabbitmqctl start_app
   when: rabbitmq_erlang_cookie_status.stdout == ""

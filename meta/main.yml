@@ -1,4 +1,6 @@
 galaxy_info:
+  role_name: rabbitmq
+  namespace: agdsn
   author: Sébastien Elet
   description: Rabbitmq server
   company: SimpliField
