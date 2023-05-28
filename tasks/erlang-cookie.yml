@@ -7,10 +7,12 @@
 
 - name: Stopping rabbitmq app
   ansible.builtin.command: rabbitmqctl stop_app
+  changed_when: true
   when: rabbitmq_erlang_cookie_status.stdout == ""
 
 - name: Resetting rabbitmq app
   ansible.builtin.command: rabbitmqctl reset
+  changed_when: true
   when: rabbitmq_erlang_cookie_status.stdout == ""
 
 - name: Stopping rabbitmq-server
@@ -36,4 +38,5 @@
 
 - name: Start rabbitmq app
   ansible.builtin.command: rabbitmqctl start_app
+  changed_when: true
   when: rabbitmq_erlang_cookie_status.stdout == ""
